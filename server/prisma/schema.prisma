@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model OrdersOfDay {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  day     DateTime
+  orders  Order    @relation(fields: [orderId], references: [id])
+  orderId String
+}
+
+model MenuItem {
+  id             String  @id @default(auto()) @map("_id") @db.ObjectId
+  name           String  @unique
+  price          Int
+  ingredient     String
+  thereIsOnStock Boolean
+  Order          Order?  @relation(fields: [orderId], references: [id])
+  orderId        String?
+}
+
+model Order {
+  id          String        @id @map("_id")
+  requests    MenuItem[]
+  Table       Table[]
+  status      Status        @default(Waiting)
+  OrdersOfDay OrdersOfDay[]
+}
+
+model Table {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  tableNumer Int    @unique
+  order      Order  @relation(fields: [orderId], references: [id])
+  orderId    String
+}
+
+model Employer {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name     String @unique
+  password String
+  role     Roles
+}
+
+enum Roles {
+  Chef
+  Attendant
+  Manager
+}
+
+enum Status {
+  Waiting
+  Cooking
+  Ready
+  Delivered
+  Finished
+}
