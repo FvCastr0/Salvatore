@@ -1,11 +1,18 @@
+import CreateMenuItemProps from '@/interface/CreateMenuItemProps';
+import ResponseData from '@/interface/ResponseData';
 import { PrismaClient } from '@prisma/client';
 
 class CreateMenuItemService {
-  async execute({ name, price, ingredient, thereIsOnStock }: { name: string, price: number, ingredient: string, thereIsOnStock: boolean }) {
+  async execute({ name, price, ingredient, thereIsOnStock }: CreateMenuItemProps): Promise<ResponseData> {
 
     const menu = new PrismaClient().menuItem;
-    await menu.findFirst({ where: { name } }) !== null ?
-      { statusCode: 400, msg: "This item already exist!" } :
+
+    if (await menu.findFirst({ where: { name } }) !== null) {
+      return {
+        statusCode: 400,
+        msg: "This item already exist!"
+      }
+    } else {
       await menu.create({
         data: {
           name,
@@ -15,7 +22,8 @@ class CreateMenuItemService {
         }
       });
 
-    return { statusCode: 200, msg: "Item created successfully" };
+      return { msg: "Item created successfully", statusCode: 200 };
+    }
   }
 }
 
