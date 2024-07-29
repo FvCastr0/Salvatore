@@ -2,32 +2,32 @@ import DeletItemProp from "@/interface/DeleteItemProp";
 import ResponseData from "@/interface/ResponseData";
 import { PrismaClient } from "@prisma/client";
 
-class DeleteMenuItemService {
+class DeleteUserService {
   async execute({ id }: DeletItemProp): Promise<ResponseData> {
 
-    const menu = new PrismaClient().menuItem;
+    const user = new PrismaClient().users;
 
     try {
-      const verifyIfIdExist = await menu.findFirst({
+      const verifyIfIdExist = await user.findFirst({
         where: {
           id
         }
       })
 
       if (verifyIfIdExist !== null) {
-        await menu.delete({
+        await user.delete({
           where: {
             id
           }
         })
 
         return {
-          msg: "Item deleted successfully",
+          msg: "User deleted successfully",
           statusCode: 200
         }
       } else {
         return {
-          msg: "This item doesn't exist",
+          msg: "This User doesn't exist",
           statusCode: 404
         }
       }
@@ -43,4 +43,5 @@ class DeleteMenuItemService {
 
 }
 
-export { DeleteMenuItemService };
+export { DeleteUserService };
+

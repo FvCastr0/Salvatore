@@ -1,4 +1,4 @@
-import ChangeStockProps from '@/interface/ChangeStockProps';
+import ChangeStockProps from '@/interface/MenuItem/ChangeStockProps';
 import ResponseData from '@/interface/ResponseData';
 import { ChangeStockService } from '@/services/MenuItem/ChangeStock';
 import { FastifyReply, FastifyRequest } from 'fastify';

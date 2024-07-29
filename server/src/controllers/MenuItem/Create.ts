@@ -1,4 +1,4 @@
-import CreateMenuItemProps from '@/interface/CreateMenuItemProps';
+import CreateMenuItemProps from '@/interface/MenuItem/CreateMenuItemProps';
 import ResponseData from '@/interface/ResponseData';
 import { CreateMenuItemService } from '@/services/MenuItem/Create';
 import { FastifyReply, FastifyRequest } from 'fastify';

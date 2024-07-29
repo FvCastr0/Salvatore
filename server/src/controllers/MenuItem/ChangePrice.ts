@@ -1,4 +1,4 @@
-import ChangePriceProps from '@/interface/ChangePriceProps';
+import ChangePriceProps from '@/interface/MenuItem/ChangePriceProps';
 import ResponseData from '@/interface/ResponseData';
 import { ChangePriceService } from '@/services/MenuItem/ChangePrice';
 import { FastifyReply, FastifyRequest } from 'fastify';

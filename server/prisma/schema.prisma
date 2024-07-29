@@ -39,7 +39,7 @@ model Table {
   orderId    String
 }
 
-model Employer {
+model Users {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   name     String @unique
   password String
