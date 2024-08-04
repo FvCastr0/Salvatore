@@ -7,36 +7,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model OrdersOfDay {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  day     DateTime
-  orders  Order    @relation(fields: [orderId], references: [id])
-  orderId String
-}
-
 model MenuItem {
-  id             String  @id @default(auto()) @map("_id") @db.ObjectId
-  name           String  @unique
-  price          Int
-  ingredient     String
-  thereIsOnStock Boolean
-  Order          Order?  @relation(fields: [orderId], references: [id])
-  orderId        String?
+  id         String          @id @default(auto()) @map("_id") @db.ObjectId
+  name       String          @unique
+  price      Float
+  ingredient String
+  orders     OrderMenuItem[]
 }
 
 model Order {
-  id          String        @id @map("_id")
-  requests    MenuItem[]
-  Table       Table[]
-  status      Status        @default(Waiting)
-  OrdersOfDay OrdersOfDay[]
+  id          String          @id @map("_id")
+  orderNumber Int             @unique
+  items       OrderMenuItem[]
+  status      OrderStatus
+  date        DateTime        @unique
 }
 
-model Table {
-  id         String @id @default(auto()) @map("_id") @db.ObjectId
-  tableNumer Int    @unique
-  order      Order  @relation(fields: [orderId], references: [id])
-  orderId    String
+model OrderMenuItem {
+  id          String          @id @default(auto()) @map("_id") @db.ObjectId
+  orderNumber Int
+  status      OrderItemStatus @default(Waiting)
+  menuItem    MenuItem        @relation(fields: [menuItemId], references: [id])
+  menuItemId  String
+  order       Order           @relation(fields: [orderNumber], references: [orderNumber])
 }
 
 model Users {
@@ -47,12 +40,19 @@ model Users {
 }
 
 enum Roles {
-  Chef
-  Attendant
+  Employee
   Manager
 }
 
-enum Status {
+enum OrderStatus {
+  Not_Met
+  Order_Placed
+  Order_Ready
+  Finished
+  Paid
+}
+
+enum OrderItemStatus {
   Waiting
   Cooking
   Ready

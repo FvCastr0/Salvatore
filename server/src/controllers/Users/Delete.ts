@@ -11,6 +11,7 @@ class DeleteUserController {
 
     const deleteUser = await new DeleteUserService().execute({ id });
 
+    rep.code(deleteUser.statusCode)
     return {
       msg: deleteUser.msg,
       statusCode: deleteUser.statusCode

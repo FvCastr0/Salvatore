@@ -11,6 +11,7 @@ class ChangeStockController {
 
     const changeStock = await new ChangeStockService().execute({ id });
 
+    rep.code(changeStock.statusCode)
     return {
       msg: changeStock.msg,
       statusCode: changeStock.statusCode,

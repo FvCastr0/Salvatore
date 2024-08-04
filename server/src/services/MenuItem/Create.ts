@@ -3,7 +3,7 @@ import ResponseData from '@/interface/ResponseData';
 import { PrismaClient } from '@prisma/client';
 
 class CreateMenuItemService {
-  async execute({ name, price, ingredient, thereIsOnStock }: CreateMenuItemProps): Promise<ResponseData> {
+  async execute({ name, price, ingredient }: CreateMenuItemProps): Promise<ResponseData> {
 
     const menu = new PrismaClient().menuItem;
 
@@ -17,8 +17,7 @@ class CreateMenuItemService {
         data: {
           name,
           price,
-          ingredient,
-          thereIsOnStock
+          ingredient
         }
       });
 

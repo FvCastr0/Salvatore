@@ -10,7 +10,6 @@ class ShowMenuService {
             "name": true,
             "price": true,
             "ingredient": true,
-            "thereIsOnStock": true,
           }
         });
 

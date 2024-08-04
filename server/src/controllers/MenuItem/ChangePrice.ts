@@ -12,6 +12,8 @@ class ChangePriceController {
 
     const changePrice = await new ChangePriceService().execute({ id, price });
 
+    rep.code(changePrice.statusCode)
+
     return {
       msg: changePrice.msg,
       statusCode: changePrice.statusCode,

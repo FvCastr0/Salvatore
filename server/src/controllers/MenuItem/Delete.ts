@@ -11,6 +11,7 @@ class DeleteMenuItemController {
 
     const deleteItem = await new DeleteMenuItemService().execute({ id });
 
+    rep.code(deleteItem.statusCode)
     return {
       msg: deleteItem.msg,
       statusCode: deleteItem.statusCode

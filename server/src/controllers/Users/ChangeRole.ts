@@ -9,6 +9,7 @@ class ChangeUserRoleController {
 
     const user = await new ChangeUserRoleService().execute({ id, role })
 
+    rep.code(user.statusCode)
     return {
       msg: user.msg,
       statusCode: user.statusCode,
